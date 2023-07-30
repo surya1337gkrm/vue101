@@ -2,7 +2,9 @@ Vue.createApp({
   data() {
     return {
       fname: 'Surya',
-      htmlText:'<h3 style="color:black;background-color:unset;">Rendering HTML Text here</h3>',
+      htmlText:
+        '<h3 style="color:black;background-color:unset;">Rendering HTML Text here</h3>',
+      inputText: '',
       imageDesc: 'Sample Image',
       imageHeight: '200',
       imageWidth: '200',
@@ -13,10 +15,13 @@ Vue.createApp({
   methods: {
     outputFullname() {
       if (Math.random() > 0.5) {
-        return 'Madhuri Jangiti';
+        return 'Random';
       } else {
-        return this.fname + ' Venkatesh Vijjana';
+        return this.fname + ' SV';
       }
+    },
+    setInputText(event) {
+      this.inputText = event.target.value;
     },
   },
 }).mount('#main');
