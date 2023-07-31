@@ -27,15 +27,18 @@
       </p>
       <br />
       <p>{{fname}}</p>
-      <p>{{outputFullname()}}</p>
+      <!--in the current setup, outputFullname will be invoked every time when the page renders [ state changes] -->
+      <!-- To avoid this,get the fullname by calling the outputFullname fn when the page mounts -->
+      <!-- <p>{{outputFullname()}}</p> -->
+      <p>{{fullname}}</p>
       <p v-html="htmlText"></p>
-      <!-- <p>
+      <p>
         <input
           type="text"
-          v-bind:value="outputFullname()"
+          v-bind:value="fullname"
           placeholder="Enter Text"
         />
-      </p> -->
+      </p>
       <input type="text" v-on:input="setInputText" placeholder="Enter Text" />
       <p v-if="inputText">{{inputText}}</p>
     </main>

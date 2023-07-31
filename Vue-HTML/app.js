@@ -2,6 +2,7 @@ Vue.createApp({
   data() {
     return {
       fname: 'Surya',
+      fullname: '',
       htmlText:
         '<h3 style="color:black;background-color:unset;">Rendering HTML Text here</h3>',
       inputText: '',
@@ -23,5 +24,9 @@ Vue.createApp({
     setInputText(event) {
       this.inputText = event.target.value;
     },
+  },
+  // this mounted method will be invoked when the component/page is first mounted
+  mounted() {
+    this.fullname = this.outputFullname();
   },
 }).mount('#main');
