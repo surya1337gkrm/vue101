@@ -17,30 +17,90 @@
   <body>
     <h1>Sample</h1>
     <main id="main">
-      <p>
+      <div class="" flex-item>
         <img
           v-bind:src="imageLink"
           v-bind:alt="imageDesc"
           v-bind:height="imageHeight"
           v-bind:width="imageWidth"
         />
-      </p>
-      <br />
-      <p>{{fname}}</p>
-      <!--in the current setup, outputFullname will be invoked every time when the page renders [ state changes] -->
-      <!-- To avoid this,get the fullname by calling the outputFullname fn when the page mounts -->
-      <!-- <p>{{outputFullname()}}</p> -->
-      <p>{{fullname}}</p>
-      <p v-html="htmlText"></p>
-      <p>
+      </div>
+      <div class="flex-item">
+        <h3>Counter</h3>
+        <p v-once>Starting Value: {{counter}}</p>
+        <p>{{counter}}</p>
+        <button v-on:click="increment">Increment 5</button>
+      </div>
+
+      <div class="flex-item">
+        <h3>V-Model & Computed Properties</h3>
+        <form @submit.prevent="clearForm">
+          <input type="text" placeholder="Enter First Name" v-model="fname" />
+          <br />
+          <input type="text" placeholder="Enter Last Name" v-model="lname" />
+          <br />
+          <input type="submit" value="SUBMIT" />
+        </form>
+        <p v-if="fullName">{{fullName}}</p>
+      </div>
+
+      <div class="flex-item">
+        <h3>List</h3>
+        <p v-if="goals.length===0">No Goals Available</p>
+        <form @submit.prevent="addGoals">
+          <input type="text" placeholder="Enter Goal" v-model="enteredGoal" />
+        </form>
+        <br />
+        <ul>
+          <li
+            v-for="(goal,index) in goals"
+            :key="goal"
+            @click="removeGoal(index)"
+          >
+            {{goal}}
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-item">
+        <!--in the current setup, outputFullname will be invoked every time when the page renders [ state changes] -->
+        <!-- To avoid this,get the fullname by calling the outputFullname fn when the page mounts -->
+        <!-- <p>{{outputFullname()}}</p> -->
+        <p>{{fullname}}</p>
+        <p v-html="htmlText"></p>
+        <p>
+          <!-- v-bind:value -> instead we can use :value as a shorthand. -->
+          <input type="text" v-bind:value="fullname" placeholder="Enter Text" />
+        </p>
         <input
           type="text"
-          v-bind:value="fullname"
+          v-on:input="setInputText"
           placeholder="Enter Text"
+          v-on:keyup.enter="handleEnterKeyUp"
         />
-      </p>
-      <input type="text" v-on:input="setInputText" placeholder="Enter Text" />
-      <p v-if="inputText">{{inputText}}</p>
+        <p v-if="inputText">{{inputText}}</p>
+        <br />
+        <button v-on:click.right="handleRightClick">Button</button>
+        <form v-on:submit.prevent="handleSubmit">
+          <input type="text" placeholder="Enter Text" />
+          <input type="submit" value="Submit" />
+        </form>
+
+        <form>
+          <!-- <input
+            type="text"
+            v-bind:value="sampleText"
+            placeholder="Enter Text"
+            v-on:input="updateSampleText"
+          /> -->
+          <!-- instead of the above setup, we can use v-model directive which can be used to 
+          the same thing as before. -->
+          <input type="text" placeholder="Enter Text" v-model="sampleText" />
+          <p v-if="sampleText">{{sampleText}}</p>
+          <br />
+          <small>{{ outputSampleText() }}</small>
+        </form>
+      </div>
     </main>
   </body>
 </html>
