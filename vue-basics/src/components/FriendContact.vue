@@ -6,6 +6,8 @@
     </button>
     <br />
     <button @click="toggleFav">{{ isFav ? 'Remove' : 'Set' }} Favourite</button>
+    <br />
+    <button @click="deleteFriend">Delete</button>
 
     <ul v-if="dataVisible">
       <li>Email: {{ email }}</li>
@@ -28,6 +30,10 @@ export default {
     phoneNumber: {
       required: true,
       type: String,
+      validator: function (value) {
+        if (value) return true;
+        else return false;
+      },
     },
     isFav: {
       type: Boolean,
@@ -53,6 +59,13 @@ export default {
         return false;
       }
     },
+    'delete-friend': function (id) {
+      if (id) return true;
+      else {
+        console.warn('ID is required');
+        return false;
+      }
+    },
   },
   data() {
     return {
@@ -65,6 +78,9 @@ export default {
     },
     toggleFav() {
       this.$emit('toggle-fav', this.id);
+    },
+    deleteFriend() {
+      this.$emit('delete-friend', this.id);
     },
   },
 };

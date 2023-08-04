@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div id="main">
     <h2>My Friends</h2>
     <!-- props named using kebab cse will be converted into camelcase -->
+    <new-friend @addFriend="addFriendEvent"></new-friend>
     <div class="card">
       <friend-contact
         v-for="friend in friends"
@@ -12,6 +13,7 @@
         :phone-number="friend.phone"
         :is-fav="friend.isFav"
         @toggleFav="toggleFavEvent"
+        @deleteFriend="deleteFriendEvent"
       ></friend-contact>
     </div>
   </div>
@@ -46,6 +48,19 @@ export default {
       let f = this.friends.find((friend) => friend.id === friendId);
       f.isFav = !f.isFav;
     },
+    addFriendEvent(name, email, phone) {
+      let friend = {
+        id: new Date().getTime(),
+        name,
+        email,
+        phone,
+        isFav: false,
+      };
+      this.friends.push(friend);
+    },
+    deleteFriendEvent(id) {
+      this.friends = this.friends.filter((friend) => friend.id !== id);
+    },
   },
 };
 </script>
@@ -53,8 +68,32 @@ export default {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .card {
   display: flex;
   gap: 5px;
+}
+input {
+  margin: 5px;
+}
+form {
+  background-color: steelblue;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+form input,
+form input:active {
+  outline: none;
+  border: none;
+}
+form label {
+  color: white;
 }
 </style>
